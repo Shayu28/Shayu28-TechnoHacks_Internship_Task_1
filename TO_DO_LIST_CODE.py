@@ -13,38 +13,29 @@ class TodoListApp(tk.Tk):
         style = Style(theme="cyborg")
         style.configure("Custom.TEntry", foreground="grey")
 
-        # Create input field for adding tasks
         self.task_input = ttk.Entry(self, font=("TkDefaultFont", 16), width=30, style="Custom.TEntry")
         self.task_input.pack(pady=10)
 
-        # Create entry field for adding deadline date
         self.deadline_input = ttk.Entry(self, font=("TkDefaultFont", 16), width=15, style="Custom.TEntry")
         self.deadline_input.pack(pady=5)
 
-        # Set placeholders for input fields
         self.task_input.insert(0, "Enter your todo here...")
         self.deadline_input.insert(0, "YYYY-MM-DD")
 
-        # Bind events to clear placeholders when input fields are clicked
         self.task_input.bind("<FocusIn>", self.clear_placeholder)
         self.deadline_input.bind("<FocusIn>", self.clear_placeholder)
 
-        # Bind events to restore placeholders when input fields lose focus
         self.task_input.bind("<FocusOut>", self.restore_placeholder)
         self.deadline_input.bind("<FocusOut>", self.restore_placeholder)
 
-        # Create button for adding tasks
         ttk.Button(self, text="Add", command=self.add_task).pack(pady=5)
 
-        # Create listbox to display added tasks
         self.task_list = tk.Listbox(self, font=("TkDefaultFont", 16), height=10, selectmode=tk.NONE)
         self.task_list.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
-        # Create buttons for marking tasks as done or deleting them
         ttk.Button(self, text="Done", style="success.TButton", command=self.mark_done).pack(side=tk.LEFT, padx=10, pady=10)
         ttk.Button(self, text="Delete", style="danger.TButton", command=self.delete_task).pack(side=tk.RIGHT, padx=10, pady=10)
 
-        # Create button for displaying task statistics
         ttk.Button(self, text="View Status", style="info.TButton", command=self.view_stats).pack(side=tk.BOTTOM, pady=10)
 
         self.load_tasks()
